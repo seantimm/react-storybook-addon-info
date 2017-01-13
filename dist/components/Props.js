@@ -59,15 +59,19 @@ var Props = function (_React$Component) {
   (0, _createClass3.default)(Props, [{
     key: 'render',
     value: function render() {
+      var _props = this.props,
+          truncateProps = _props.truncateProps,
+          truncateStrings = _props.truncateStrings;
+
       var props = this.props.node.props;
       var defaultProps = this.props.node.type.defaultProps;
       if (!props || (typeof props === 'undefined' ? 'undefined' : (0, _typeof3.default)(props)) !== 'object') {
         return _react2.default.createElement('span', null);
       }
 
-      var propStyle = stylesheet.propStyle;
-      var propValueStyle = stylesheet.propValueStyle;
-      var propNameStyle = stylesheet.propNameStyle;
+      var propStyle = stylesheet.propStyle,
+          propValueStyle = stylesheet.propValueStyle,
+          propNameStyle = stylesheet.propNameStyle;
 
 
       var names = (0, _keys2.default)(props).filter(function (name) {
@@ -100,7 +104,7 @@ var Props = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { style: propValueStyle },
-              _react2.default.createElement(_PropVal2.default, { val: props[name] })
+              _react2.default.createElement(_PropVal2.default, { val: props[name], truncateProps: truncateProps, truncateStrings: truncateStrings })
             )
           ),
           i === names.length - 1 && (breakIntoNewLines ? _react2.default.createElement('br', null) : endingSpace)

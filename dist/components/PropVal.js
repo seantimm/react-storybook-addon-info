@@ -77,13 +77,13 @@ var valueStyles = {
   }
 };
 
-function previewArray(val) {
+function previewArray(val, truncateProps, truncateStrings) {
   var items = {};
   val.slice(0, 3).forEach(function (item, i) {
-    items['n' + i] = _react2.default.createElement(PropVal, { val: item });
+    items['n' + i] = _react2.default.createElement(PropVal, { val: item, truncateProps: truncateProps, truncateStrings: truncateStrings });
     items['c' + i] = ', ';
   });
-  if (val.length > 3) {
+  if (val.length > 3 && truncateProps) {
     items.last = '…';
   } else {
     delete items['c' + (val.length - 1)];
@@ -97,7 +97,7 @@ function previewArray(val) {
   );
 }
 
-function previewObject(val) {
+function previewObject(val, truncateProps, truncateStrings) {
   var names = (0, _keys2.default)(val);
   var items = {};
   names.slice(0, 3).forEach(function (name, i) {
@@ -107,10 +107,10 @@ function previewObject(val) {
       name
     );
     items['c' + i] = ': ';
-    items['v' + i] = _react2.default.createElement(PropVal, { val: val[name] });
+    items['v' + i] = _react2.default.createElement(PropVal, { val: val[name], truncateProps: truncateProps, truncateStrings: truncateStrings });
     items['m' + i] = ', ';
   });
-  if (names.length > 3) {
+  if (names.length > 3 && truncateProps) {
     items.rest = '…';
   } else {
     delete items['m' + (names.length - 1)];
@@ -124,7 +124,7 @@ function previewObject(val) {
   );
 }
 
-function previewProp(val) {
+function previewProp(val, truncateProps, truncateStrings) {
   var braceWrap = true;
   var content = null;
   if (typeof val === 'number') {
@@ -134,7 +134,7 @@ function previewProp(val) {
       val
     );
   } else if (typeof val === 'string') {
-    if (val.length > 50) {
+    if (val.length > 50 && truncateStrings) {
       val = val.slice(0, 50) + '…';
     }
     content = _react2.default.createElement(
@@ -152,7 +152,7 @@ function previewProp(val) {
       '' + val
     );
   } else if (Array.isArray(val)) {
-    content = previewArray(val);
+    content = previewArray(val, truncateProps, truncateStrings);
   } else if (typeof val === 'function') {
     content = _react2.default.createElement(
       'span',
@@ -178,7 +178,7 @@ function previewProp(val) {
       '<' + (val.type.displayName || val.type.name || val.type) + ' />'
     );
   } else {
-    content = previewObject(val);
+    content = previewObject(val, truncateProps, truncateStrings);
   }
 
   if (!braceWrap) return content;
@@ -202,7 +202,7 @@ var PropVal = function (_React$Component) {
   (0, _createClass3.default)(PropVal, [{
     key: 'render',
     value: function render() {
-      return previewProp(this.props.val);
+      return previewProp(this.props.val, this.props.truncateProps, this.props.truncateStrings);
     }
   }]);
   return PropVal;

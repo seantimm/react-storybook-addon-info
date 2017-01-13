@@ -12,6 +12,7 @@ const stylesheet = {
 
 export default class Props extends React.Component {
   render() {
+    const { truncateProps, truncateStrings } = this.props;
     const props = this.props.node.props;
     const defaultProps = this.props.node.type.defaultProps;
     if (!props || typeof props !== 'object') {
@@ -41,7 +42,7 @@ export default class Props extends React.Component {
           {(!props[name] || typeof props[name] !== 'boolean') && (
             <span>
               =
-              <span style={propValueStyle}><PropVal val={props[name]} /></span>
+              <span style={propValueStyle}><PropVal val={props[name]} truncateProps={truncateProps} truncateStrings={truncateStrings} /></span>
             </span>
           )}
 

@@ -56,11 +56,13 @@ var Node = function (_React$Component) {
   (0, _createClass3.default)(Node, [{
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var node = _props.node;
-      var depth = _props.depth;
-      var tagStyle = stylesheet.tagStyle;
-      var containerStyle = stylesheet.containerStyle;
+      var _props = this.props,
+          node = _props.node,
+          depth = _props.depth,
+          truncateProps = _props.truncateProps,
+          truncateStrings = _props.truncateStrings;
+      var tagStyle = stylesheet.tagStyle,
+          containerStyle = stylesheet.containerStyle;
 
 
       var leftPad = {
@@ -70,13 +72,13 @@ var Node = function (_React$Component) {
 
       (0, _assign2.default)(containerStyle, leftPad);
 
-      var _getData = getData(node);
-
-      var name = _getData.name;
-      var text = _getData.text;
-      var children = _getData.children;
+      var _getData = getData(node),
+          name = _getData.name,
+          text = _getData.text,
+          children = _getData.children;
 
       // Just text
+
 
       if (!name) {
         return _react2.default.createElement(
@@ -101,7 +103,7 @@ var Node = function (_React$Component) {
             '<',
             name
           ),
-          _react2.default.createElement(_Props2.default, { node: node, singleLine: true }),
+          _react2.default.createElement(_Props2.default, { node: node, singleLine: true, truncateProps: truncateProps, truncateStrings: truncateStrings }),
           _react2.default.createElement(
             'span',
             { style: tagStyle },
@@ -126,7 +128,7 @@ var Node = function (_React$Component) {
             '<',
             name
           ),
-          _react2.default.createElement(_Props2.default, { node: node }),
+          _react2.default.createElement(_Props2.default, { node: node, truncateProps: truncateProps, truncateStrings: truncateStrings }),
           _react2.default.createElement(
             'span',
             { style: tagStyle },
@@ -134,7 +136,7 @@ var Node = function (_React$Component) {
           )
         ),
         _react2.default.Children.map(children, function (childElement) {
-          return _react2.default.createElement(Node, { node: childElement, depth: depth + 1 });
+          return _react2.default.createElement(Node, { node: childElement, depth: depth + 1, truncateProps: truncateProps, truncateStrings: truncateStrings });
         }),
         _react2.default.createElement(
           'div',

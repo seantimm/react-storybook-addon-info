@@ -7,6 +7,8 @@ const defaultOptions = {
   inline: false,
   header: true,
   source: true,
+  truncateProps: true,
+  truncateStrings: true,
   propTables: [],
 };
 
@@ -61,6 +63,8 @@ export default {
         showInline: Boolean(options.inline),
         showHeader: Boolean(options.header),
         showSource: Boolean(options.source),
+        truncateProps: Boolean(options.truncateProps),
+        truncateStrings: Boolean(options.truncateStrings),
         propTables: options.propTables,
         mtrcConf
       };

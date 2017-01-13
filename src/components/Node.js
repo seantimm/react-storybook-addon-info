@@ -15,7 +15,7 @@ export default class Node extends React.Component {
   }
 
   render(){
-    const {node, depth} = this.props;
+    const {node, depth, truncateProps, truncateStrings} = this.props;
     let {tagStyle, containerStyle} = stylesheet;
 
     var leftPad = {
@@ -38,7 +38,7 @@ export default class Node extends React.Component {
     if (!children) {
       return <div style={containerStyle}>
         <span style={tagStyle}>&lt;{name}</span>
-          <Props node={node} singleLine />
+          <Props node={node} singleLine truncateProps={truncateProps} truncateStrings={truncateStrings} />
         <span style={tagStyle}>/&gt;</span>
       </div>;
     }
@@ -51,11 +51,11 @@ export default class Node extends React.Component {
       <div>
         <div style={containerStyleCopy}>
           <span style={tagStyle}>&lt;{name}</span>
-            <Props node={node} />
+            <Props node={node} truncateProps={truncateProps} truncateStrings={truncateStrings} />
           <span style={tagStyle}>&gt;</span>
         </div>
         {React.Children.map(children, childElement => (
-          <Node node={childElement} depth={depth + 1} />
+          <Node node={childElement} depth={depth + 1} truncateProps={truncateProps} truncateStrings={truncateStrings} />
         ))}
         <div style={containerStyleCopy}>
           <span style={tagStyle}>&lt;/{name}&gt;</span>
